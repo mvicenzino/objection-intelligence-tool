@@ -10,6 +10,8 @@
 body {
   margin: 0;
   background: #f1f5f9;
+  /* Prevent iOS text size adjustment */
+  -webkit-text-size-adjust: 100%;
 }
 
 #root {

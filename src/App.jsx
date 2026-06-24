@@ -156,8 +156,8 @@ function DocBadge({ type }) {
 // ─── Ask Tab ───────────────────────────────────────────────────────────────────
 const SUGGESTED = [
   { icon: '💰', label: 'How do we handle price pushback?' },
-  { icon: '⚔️', label: "What's our position against Vendor X?" },
-  { icon: '🔄', label: "TechCorp renewal — what's the plan?" },
+  { icon: '🎯', label: "What's our position against Vendor X?" },
+  { icon: '📋', label: "TechCorp renewal — what's the plan?" },
 ];
 
 function AskTab({ docs }) {
@@ -243,13 +243,13 @@ function AskTab({ docs }) {
   return (
     <div className="flex flex-col h-full">
       {/* API key bar */}
-      <div className="border-b border-slate-200 bg-white px-4 py-2 flex items-center gap-3 flex-shrink-0">
-        <div className={`flex items-center gap-2 flex-1 text-xs font-medium ${apiKey ? 'text-emerald-600' : 'text-amber-600'}`}>
-          <span className={`w-2 h-2 rounded-full flex-shrink-0 ${apiKey ? 'bg-emerald-500' : 'bg-amber-400'}`} style={{ boxShadow: apiKey ? '0 0 0 3px rgba(16,185,129,0.2)' : '0 0 0 3px rgba(251,191,36,0.2)' }} />
-          {apiKey ? 'Claude API connected — live responses' : 'Demo mode — smart mock responses active'}
-        </div>
-        <button onClick={() => setShowKeyInput((v) => !v)} className="text-xs text-slate-400 hover:text-indigo-600 transition-colors font-medium">
-          {showKeyInput ? 'Close' : apiKey ? '⚙ Change key' : '+ Connect API'}
+      <div className="border-b border-slate-200 bg-white px-4 py-2 flex items-center gap-2 flex-shrink-0">
+        <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${apiKey ? 'bg-emerald-500' : 'bg-amber-400'}`} />
+        <span className={`text-xs font-medium flex-1 truncate ${apiKey ? 'text-emerald-600' : 'text-amber-600'}`}>
+          {apiKey ? 'Live mode' : 'Demo mode'}
+        </span>
+        <button onClick={() => setShowKeyInput((v) => !v)} className="text-xs text-slate-400 active:text-indigo-600 transition-colors font-medium flex-shrink-0">
+          {showKeyInput ? 'Close' : apiKey ? 'Change key' : 'Connect API'}
         </button>
       </div>
 
@@ -364,7 +364,7 @@ function AskTab({ docs }) {
       </div>
 
       {/* Input */}
-      <div className="bg-white border-t border-slate-200 px-4 py-3 flex-shrink-0">
+      <div className="bg-white border-t border-slate-200 px-4 pt-3 flex-shrink-0" style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }}>
         <div className="flex gap-2 items-end rounded-2xl border border-slate-200 bg-white px-3.5 py-2.5 focus-within:border-indigo-400 focus-within:shadow-md transition-all" style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
           <textarea
             ref={inputRef}
@@ -375,12 +375,12 @@ function AskTab({ docs }) {
             disabled={loading}
             placeholder="Ask about any objection or deal situation…"
             className="flex-1 resize-none text-sm focus:outline-none disabled:opacity-50 placeholder-slate-400 bg-transparent"
-            style={{ lineHeight: '1.5', maxHeight: '120px' }}
+            style={{ lineHeight: '1.5', maxHeight: '120px', fontSize: '16px' }}
           />
           <button
             onClick={() => sendMessage(input)}
             disabled={loading || !input.trim()}
-            className="flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center text-white disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+            className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-white disabled:opacity-40 transition-all active:scale-95"
             style={{ background: input.trim() ? 'linear-gradient(135deg, #4f46e5, #6366f1)' : '#e2e8f0', boxShadow: input.trim() ? '0 4px 12px rgba(79,70,229,0.3)' : 'none' }}
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -388,7 +388,7 @@ function AskTab({ docs }) {
             </svg>
           </button>
         </div>
-        <p className="text-xs text-slate-400 mt-2 text-center">Grounded in your knowledge base only · Enter to send</p>
+        <p className="text-xs text-slate-400 mt-2 text-center">Grounded in your knowledge base only</p>
       </div>
     </div>
   );
@@ -553,38 +553,36 @@ export default function App() {
   return (
     <div className="flex flex-col" style={{ height: '100dvh', background: '#0f172a' }}>
       {/* ── Premium dark header ── */}
-      <header className="flex-shrink-0 px-5 pt-4 pb-0" style={{ background: 'linear-gradient(180deg, #0f172a 0%, #1e293b 100%)' }}>
+      <header className="flex-shrink-0 px-4 pb-0" style={{ background: 'linear-gradient(180deg, #0f172a 0%, #1e293b 100%)', paddingTop: 'max(12px, env(safe-area-inset-top))' }}>
         <div className="max-w-2xl mx-auto">
-          {/* Brand row */}
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg, #4f46e5, #7c3aed)', boxShadow: '0 0 0 1px rgba(255,255,255,0.1), 0 4px 12px rgba(79,70,229,0.4)' }}>
-                <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-              <div>
-                <h1 className="text-white font-bold text-lg tracking-tight leading-tight">Objection Intelligence</h1>
-                <p className="text-slate-400 text-xs mt-0.5">Arden Ridge · The Resilient Seller</p>
-              </div>
+          {/* Brand row — single line, compact */}
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg, #4f46e5, #7c3aed)', boxShadow: '0 0 0 1px rgba(255,255,255,0.1), 0 4px 12px rgba(79,70,229,0.4)' }}>
+              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
             </div>
-            <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-3 py-1.5">
+            <div className="flex-1 min-w-0">
+              <h1 className="text-white font-bold text-base tracking-tight leading-none">Objection Intelligence</h1>
+              <p className="text-slate-500 text-xs mt-0.5 truncate">Arden Ridge · The Resilient Seller</p>
+            </div>
+            <div className="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-full px-2.5 py-1 flex-shrink-0">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0" style={{ boxShadow: '0 0 6px rgba(52,211,153,0.8)' }} />
-              <span className="text-slate-300 text-xs font-medium">{docs.length} docs loaded</span>
+              <span className="text-slate-300 text-xs font-medium">{docs.length}</span>
             </div>
           </div>
 
-          {/* Tab bar */}
-          <div className="flex gap-1">
+          {/* Tab bar — equal width tabs, bigger touch targets */}
+          <div className="flex">
             {TABS.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className="flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium rounded-t-xl border-b-2 transition-all"
+                className="flex-1 flex items-center justify-center gap-1.5 py-3 text-sm font-medium border-b-2 transition-all"
                 style={{
                   borderColor: activeTab === tab.id ? '#6366f1' : 'transparent',
-                  color: activeTab === tab.id ? '#a5b4fc' : '#64748b',
-                  background: activeTab === tab.id ? 'rgba(99,102,241,0.1)' : 'transparent',
+                  color: activeTab === tab.id ? '#a5b4fc' : '#475569',
+                  background: activeTab === tab.id ? 'rgba(99,102,241,0.08)' : 'transparent',
                 }}
               >
                 {tab.icon}
